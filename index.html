@@ -1,0 +1,430 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Generator Cocok Ngerjain Admin Owner </title>
+  <meta name="description" content="Welcome " />
+  <style>
+    :root {
+      --bg: #0f172a;
+      --card: #1e293b;
+      --accent: #22c55e;
+      --accent-hover: #16a34a;
+      --text: #f1f5f9;
+      --muted: #94a3b8;
+      --border: #334155;
+      --input-bg: #0f172a;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+      background-color: var(--bg);
+      color: var(--text);
+      min-height: 100vh;
+      line-height: 1.6;
+      padding: 24px 16px;
+      position: relative;
+    }
+
+    /* Background foto pakai <img> */
+    .bg-photo {
+      position: fixed;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center;
+      z-index: -2;
+      pointer-events: none;
+    }
+
+    /* Overlay gelap */
+    .bg-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(15, 23, 42, 0.55);
+      z-index: -1;
+      pointer-events: none;
+    }
+
+    .container {
+      max-width: 560px;
+      margin: 0 auto;
+    }
+
+    /* Welcome teks dengan efek hitam berjalan */
+    .welcome {
+      text-align: center;
+      margin-bottom: 28px;
+      padding: 8px 0;
+    }
+
+    .welcome-text {
+      font-size: 1.35rem;
+      font-weight: 800;
+      letter-spacing: 0.5px;
+      display: inline-block;
+      color: #e2e8f0;
+      background: linear-gradient(
+        90deg,
+        #e2e8f0 0%,
+        #e2e8f0 40%,
+        #000000 50%,
+        #e2e8f0 60%,
+        #e2e8f0 100%
+      );
+      background-size: 200% auto;
+      -webkit-background-clip: text;
+      background-clip: text;
+      -webkit-text-fill-color: transparent;
+      animation: hitamBerjalan 2.8s linear infinite;
+    }
+
+    @keyframes hitamBerjalan {
+      0% {
+        background-position: 100% center;
+      }
+      100% {
+        background-position: -100% center;
+      }
+    }
+
+    header {
+      text-align: center;
+      margin-bottom: 32px;
+    }
+
+    header h1 {
+      font-size: 1.75rem;
+      font-weight: 700;
+      margin-bottom: 8px;
+      background: linear-gradient(135deg, #22c55e, #4ade80);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    header p {
+      color: var(--muted);
+      font-size: 0.95rem;
+    }
+
+    .card {
+      background: rgba(30, 41, 59, 0.92);
+      backdrop-filter: blur(8px);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 24px;
+      margin-bottom: 20px;
+      box-shadow: 0 4px 24px rgba(0,0,0,0.4);
+    }
+
+    label {
+      display: block;
+      font-size: 0.875rem;
+      font-weight: 600;
+      margin-bottom: 6px;
+      color: var(--muted);
+    }
+
+    .hint {
+      font-size: 0.75rem;
+      color: var(--muted);
+      margin-top: 4px;
+      margin-bottom: 12px;
+    }
+
+    input[type="text"],
+    textarea {
+      width: 100%;
+      background: var(--input-bg);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 12px 14px;
+      color: var(--text);
+      font-size: 1rem;
+      outline: none;
+      transition: border-color 0.2s;
+    }
+
+    input[type="text"]:focus,
+    textarea:focus {
+      border-color: var(--accent);
+    }
+
+    .field {
+      margin-bottom: 18px;
+    }
+
+    .btn-row {
+      display: flex;
+      gap: 10px;
+      margin-top: 8px;
+    }
+
+    button {
+      flex: 1;
+      border: none;
+      border-radius: 10px;
+      padding: 13px 16px;
+      font-size: 1rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background 0.2s, transform 0.1s;
+    }
+
+    button:active {
+      transform: scale(0.98);
+    }
+
+    .btn-primary {
+      background: var(--accent);
+      color: #052e16;
+    }
+
+    .btn-primary:hover {
+      background: var(--accent-hover);
+    }
+
+    .btn-secondary {
+      background: transparent;
+      border: 1px solid var(--border);
+      color: var(--text);
+    }
+
+    .btn-secondary:hover {
+      border-color: var(--accent);
+      color: var(--accent);
+    }
+
+    .result-box {
+      background: var(--input-bg);
+      border: 1px dashed var(--border);
+      border-radius: 10px;
+      padding: 14px;
+      min-height: 80px;
+      word-break: break-all;
+      font-size: 0.9rem;
+      color: var(--muted);
+      white-space: pre-wrap;
+    }
+
+    .result-box.has-content {
+      color: var(--text);
+      border-style: solid;
+      border-color: var(--accent);
+    }
+
+    .toast {
+      position: fixed;
+      bottom: 24px;
+      left: 50%;
+      transform: translateX(-50%) translateY(100px);
+      background: var(--accent);
+      color: #052e16;
+      padding: 12px 24px;
+      border-radius: 999px;
+      font-weight: 600;
+      opacity: 0;
+      transition: all 0.3s ease;
+      z-index: 100;
+      pointer-events: none;
+    }
+
+    .toast.show {
+      transform: translateX(-50%) translateY(0);
+      opacity: 1;
+    }
+
+    .info {
+      font-size: 0.85rem;
+      color: var(--muted);
+    }
+
+    .info h3 {
+      color: var(--text);
+      font-size: 1rem;
+      margin-bottom: 8px;
+    }
+
+    .info ol {
+      padding-left: 18px;
+      margin-bottom: 12px;
+    }
+
+    .info li {
+      margin-bottom: 4px;
+    }
+
+    .examples {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 10px;
+    }
+
+    .chip {
+      background: #0f172a;
+      border: 1px solid var(--border);
+      border-radius: 999px;
+      padding: 6px 12px;
+      font-size: 0.8rem;
+      cursor: pointer;
+      transition: border-color 0.2s;
+    }
+
+    .chip:hover {
+      border-color: var(--accent);
+    }
+
+    footer {
+      text-align: center;
+      margin-top: 28px;
+      font-size: 0.8rem;
+      color: var(--muted);
+    }
+  </style>
+</head>
+<body>
+  <!-- Background foto -->
+  <img class="bg-photo" src="https://i.ibb.co.com/DD4cv0JB/10880783674-119031818630096-1790999843330.png" alt="">
+  <div class="bg-overlay"></div>
+
+  <div class="container">
+    <!-- Welcome teks dengan efek hitam berjalan -->
+    <div class="welcome">
+      <span class="welcome-text">Welcome di website XioukaySpM</span>
+    </div>
+
+    <header>
+      <h1>COCOK NGERJAIN TEMEN KALIAN ATAU PACAR</h1>
+      <p></p>
+    </header>
+
+    <div class="card">
+      <div class="field">
+        <label for="front">Teks yang tampil dulu</label>
+        <input type="text" id="front" placeholder="Contoh: Hai sayang..." autocomplete="off" />
+        <p class="hint">Ini yang langsung kelihatan di chat</p>
+      </div>
+
+      <div class="field">
+        <label for="back">Teks yang disembunyikan</label>
+        <input type="text" id="back" placeholder="Contoh:  ternyata aku lagi makan..." autocomplete="off" />
+        <p class="hint">Opsional. Tambahkan spasi di depan kalau mau jarak lebih rapi</p>
+      </div>
+
+      <div class="btn-row">
+        <button class="btn-primary" onclick="generate()">Buat Teks</button>
+        <button class="btn-secondary" onclick="clearAll()">Reset</button>
+      </div>
+    </div>
+
+    <div class="card">
+      <label>Hasil (siap salin)</label>
+      <div class="result-box" id="result">Hasil akan muncul di sini setelah kamu klik Buat Teks...</div>
+      <div class="btn-row" style="margin-top: 14px;">
+        <button class="btn-primary" id="copyBtn" onclick="copyResult()" disabled>Salin ke Clipboard</button>
+      </div>
+    </div>
+
+    <div class="card info">
+      <h3>Cara pakai</h3>
+      <ol>
+        <li>Isi teks yang ingin ditampilkan di awal.</li>
+        <li>Isi teks yang ingin disembunyikan (bisa dikosongkan).</li>
+        <li>Klik <strong>Buat Teks</strong>, lalu <strong>Salin ke Clipboard</strong>.</li>
+        <li>Tempel di WhatsApp dan kirim. Penerima akan melihat “Baca selengkapnya”.</li>
+      </ol>
+
+      <h3>Contoh cepat</h3>
+      <div class="examples">
+        <span class="chip" onclick="fillExample('Hai sayang...', ' ternyata aku lagi di rumah aja')">Pranksayang</span>
+        <span class="chip" onclick="fillExample('Kabarin ya nanti', '  kalau udah sampai rumah')">Reminder</span>
+        <span class="chip" onclick="fillExample('Spoiler film:', '  endingnya bikin nangis')">Spoiler</span>
+        <span class="chip" onclick="fillExample('Jangan dibuka dulu', '  isinya kejutan buat kamu')">Kejutan</span>
+      </div>
+    </div>
+
+    <footer>
+    </footer>
+  </div>
+
+  <div class="toast" id="toast">Tersalin!</div>
+
+  <script>
+    const INVISIBLE = Array(3600).fill('\u034F').join('');
+
+    function generate() {
+      const front = document.getElementById('front').value;
+      const back = document.getElementById('back').value;
+      const resultEl = document.getElementById('result');
+      const copyBtn = document.getElementById('copyBtn');
+
+      if (!front.trim()) {
+        resultEl.textContent = 'Isi dulu teks yang tampil di awal ya.';
+        resultEl.classList.remove('has-content');
+        copyBtn.disabled = true;
+        return;
+      }
+
+      const output = front + INVISIBLE + back;
+      resultEl.textContent = output;
+      resultEl.classList.add('has-content');
+      copyBtn.disabled = false;
+    }
+
+    function copyResult() {
+      const text = document.getElementById('result').textContent;
+      if (!text || text.includes('Hasil akan muncul') || text.includes('Isi dulu')) return;
+
+      navigator.clipboard.writeText(text).then(() => {
+        showToast('Tersalin! Langsung tempel di WA');
+      }).catch(() => {
+        const ta = document.createElement('textarea');
+        ta.value = text;
+        document.body.appendChild(ta);
+        ta.select();
+        document.execCommand('copy');
+        document.body.removeChild(ta);
+        showToast('Tersalin!');
+      });
+    }
+
+    function clearAll() {
+      document.getElementById('front').value = '';
+      document.getElementById('back').value = '';
+      document.getElementById('result').textContent = 'Hasil akan muncul di sini setelah kamu klik Buat Teks...';
+      document.getElementById('result').classList.remove('has-content');
+      document.getElementById('copyBtn').disabled = true;
+    }
+
+    function fillExample(f, b) {
+      document.getElementById('front').value = f;
+      document.getElementById('back').value = b;
+      generate();
+    }
+
+    function showToast(msg) {
+      const t = document.getElementById('toast');
+      t.textContent = msg;
+      t.classList.add('show');
+      setTimeout(() => t.classList.remove('show'), 2200);
+    }
+
+    document.getElementById('front').addEventListener('keydown', e => {
+      if (e.key === 'Enter') generate();
+    });
+    document.getElementById('back').addEventListener('keydown', e => {
+      if (e.key === 'Enter') generate();
+    });
+  </script>
+</body>
+</html>
